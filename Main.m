@@ -1,17 +1,31 @@
-input_layer = 4 % 3 features, sepal length&width, petal length&width
-hidden_layer = 10 % arbitrary amount
-output_layer = 3 % 3 classifications, Setosa, Veriscolour, Virginica
+% Load data from the .data file
+data = dlmread('iris_training.data', ',', 0, 0);  % Read only numeric data
 
-Theta1 = randInitializeWeights(4, 5);
-Theta2 = randInitializeWeights(5, 3);
+% Extract features (first 4 columns)
+X = data(:, 1:4);
+
+% Read labels separately (since they are strings)
+fid = fopen('iris_training.data', 'r');  
+labels = textscan(fid, '%*f %*f %*f %*f %s', 'Delimiter', ',');  
+fclose(fid);
+
+y = labels{1};
+
+class_labels = {'Iris-setosa', 'Iris-versicolor', 'Iris-virginica'};
+[~, y] = ismember(y, class_labels);
+% Display first few rows to verify
+disp(X);
+disp(y);
+
+
+input_layer = 4 % 4 features, sepal length&width, petal length&width
+hidden_layer = 10 % arbitrary amount
+num_labels = 3 % 3 classifications, Setosa, Veriscolour, Virginica
+
+Theta1 = randInitializeWeights(input_layer, hidden_layer);
+Theta2 = randInitializeWeights(hidden_layer, num_labels);
 
 nn_params = [Theta1(:); Theta2(:)];
 
-printf("Theta 1\n");
-disp(Theta1);
-
-printf("\nTheta 2\n");
-disp(Theta2);
-
-printf("\nnn_params\n")
-disp(nn_params);
+J = nnCostFunction(nn_params, input_layer, hidden_layer, num_labels, X, y, 1);
+disp(J);

@@ -22,7 +22,7 @@ input_layer = 4 % 4 features, sepal length&width, petal length&width
 hidden_layer = 120 % arbitrary amount
 num_labels = 3 % 3 classifications, Setosa, Veriscolour, Virginica
 
-MAX_GENERATIONS = 5000 % Maximum Generations to go through
+MAX_GENERATIONS = 1000 % Maximum Generations to go through
 TOTAL_POPULATION = 50 % Total Population
 TOURNAMENT_SIZE = TOTAL_POPULATION .* 0.5% Tournament size, Lower means more diversity but slower convergence
                     % but higher means that less diversity but faster convergence
@@ -92,11 +92,11 @@ for g = 1: MAX_GENERATIONS
     pops = new_pops;
 end
 
-plot (minFitness);
+p = plot (minFitness);
 xlabel ("Generation");
 ylabel ("Min Fitness");
 title ("Genetic Algorithm");
-
+waitfor(p);
 
 Theta1 = reshape(optimal_weights(1:hidden_layer * (input_layer + 1)), ...
                  hidden_layer, (input_layer + 1));
@@ -117,7 +117,11 @@ class_labels = {'Iris-setosa', 'Iris-versicolor', 'Iris-virginica'};
 [~, testing_labels] = ismember(testing_labels, class_labels); % this is the outcome for each of the training data
 
 result = predict(Theta1, Theta2, testing_data);
+disp("Predicted Results: ");
 disp(result);
+disp("Actual Results: ");
 disp(testing_labels);
+training_acc = mean(double(result == testing_labels(1:length(result), 1))) * 100;
+fprintf('Training Accuracy: %.2f%%\n', training_acc);
 % J = nnCostFunction(nn_params, input_layer, hidden_layer, num_labels, X, y, 1); %Cost computation of with weights Theta1 and Theta2
 % disp(J);

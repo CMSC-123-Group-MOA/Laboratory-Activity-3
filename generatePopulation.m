@@ -1,10 +1,7 @@
-function pops = generatePopulation(num_pops)
+function pops = generatePopulation(num_pops, input_layer, hidden_layer, num_labels)
 %GENERATEPOPULATION generates a variable number of populations (dependent on num_pops)
 %and outputs it as cell array of weight matrices
 
-input_layer = 4 % 4 features, sepal length&width, petal length&width
-hidden_layer = 10 % arbitrary amount
-num_labels = 3 % 3 classifications, Setosa, Veriscolour, Virginica
 
 pops = cell(num_pops,1);
 

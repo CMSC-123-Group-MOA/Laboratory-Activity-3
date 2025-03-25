@@ -19,17 +19,17 @@ class_labels = {'Iris-setosa', 'Iris-versicolor', 'Iris-virginica'};
 
 % Some Constants
 input_layer = 4 % 4 features, sepal length&width, petal length&width
-hidden_layer = 10 % arbitrary amount
+hidden_layer = 120 % arbitrary amount
 num_labels = 3 % 3 classifications, Setosa, Veriscolour, Virginica
 
-MAX_GENERATIONS = 100 % Maximum Generations to go through
-TOTAL_POPULATION = 100 % Total Population
-TOURNAMENT_SIZE = TOTAL_POPULATION .* 0.6% Tournament size, Lower means more diversity but slower convergence
+MAX_GENERATIONS = 5000 % Maximum Generations to go through
+TOTAL_POPULATION = 50 % Total Population
+TOURNAMENT_SIZE = TOTAL_POPULATION .* 0.5% Tournament size, Lower means more diversity but slower convergence
                     % but higher means that less diversity but faster convergence
-MUTATION_CHANCE = 0.10 % Mutation chance. 
+MUTATION_CHANCE = 0.01 % Mutation chance. 
 
 % GENERATE POPULATION
-pops = generatePopulation(TOTAL_POPULATION);
+pops = generatePopulation(TOTAL_POPULATION, input_layer, hidden_layer, num_labels);
 
 optimal_weights = [];
 
@@ -98,8 +98,26 @@ ylabel ("Min Fitness");
 title ("Genetic Algorithm");
 
 
+Theta1 = reshape(optimal_weights(1:hidden_layer * (input_layer + 1)), ...
+                 hidden_layer, (input_layer + 1));
 
+Theta2 = reshape(optimal_weights((1 + (hidden_layer * (input_layer + 1))):end), ...
+                 num_labels, (hidden_layer + 1));
 
+data = dlmread('iris_testing.data', ',', 0, 0);  % Read only numeric data
+testing_data = data(:, 1:4); %This is the testing data
 
+fid = fopen('iris_testing.data', 'r');
+labels = textscan(fid, '%*f %*f %*f %*f %s', 'Delimiter', ',');
+fclose(fid);
+
+testing_labels = labels{1};
+
+class_labels = {'Iris-setosa', 'Iris-versicolor', 'Iris-virginica'};
+[~, testing_labels] = ismember(testing_labels, class_labels); % this is the outcome for each of the training data
+
+result = predict(Theta1, Theta2, testing_data);
+disp(result);
+disp(testing_labels);
 % J = nnCostFunction(nn_params, input_layer, hidden_layer, num_labels, X, y, 1); %Cost computation of with weights Theta1 and Theta2
 % disp(J);

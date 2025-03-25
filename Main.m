@@ -24,15 +24,16 @@ num_labels = 3 % 3 classifications, Setosa, Veriscolour, Virginica
 
 MAX_GENERATIONS = 100 % Maximum Generations to go through
 TOTAL_POPULATION = 100 % Total Population
-TOURNAMENT_SIZE = 2 % Tournament size, Lower means more diversity but slower convergence
+TOURNAMENT_SIZE = TOTAL_POPULATION .* 0.6% Tournament size, Lower means more diversity but slower convergence
                     % but higher means that less diversity but faster convergence
-MUTATION_CHANCE = 0.25 % Mutation chance. 
+MUTATION_CHANCE = 0.10 % Mutation chance. 
 
 % GENERATE POPULATION
 pops = generatePopulation(TOTAL_POPULATION);
 
 optimal_weights = [];
 
+minFitness = ones(MAX_GENERATIONS, 1);
 
 % FITNESS EVALUATION
 for g = 1: MAX_GENERATIONS
@@ -48,8 +49,11 @@ for g = 1: MAX_GENERATIONS
     pops = pops(sorted_indices);
 
     % get the current minimum and set that as the optimal weight
-    optimal_weights = pops{i};
+    optimal_weights = pops{1};
+    minFitness(g) = fitness(1);
+
     printf("Generation %d Min Fitness: %d\n", g, fitness(1))
+
     % stop if fitness at that minimum is already 0
     if (fitness(1) == 0)
         break;
@@ -66,14 +70,33 @@ for g = 1: MAX_GENERATIONS
         c1 = mutation(c1, MUTATION_CHANCE);
         c2 = mutation(c2, MUTATION_CHANCE);
 
+        % get child fitness
+        fitc1 = nnCostFunction(c1, input_layer, hidden_layer, num_labels, X, y, 1);
+        fitc2 = nnCostFunction(c2, input_layer, hidden_layer, num_labels, X, y, 1);
+        % printf("Child 1 Fitness: %d Child 2 Fitness: %d Lowest Fitness: %d\n", fitc1, fitc2, fitness(TOTAL_POPULATION))
+
         %insert children to new pops
-        new_pops(j) = c1;
+        if (fitc1 < fitness(TOTAL_POPULATION))
+            new_pops(j) = c1;
+        else
+            new_pops(j) = pops(j);
+        endif
         if (j+1 <= TOTAL_POPULATION)
-            new_pops(j+1) = c2;
+            if (fitc2 < fitness(TOTAL_POPULATION))
+                new_pops(j+1) = c2;
+            else
+                new_pops(j+1) = pops(j+1);
+            endif
         endif
     end
     pops = new_pops;
 end
+
+plot (minFitness);
+xlabel ("Generation");
+ylabel ("Min Fitness");
+title ("Genetic Algorithm");
+
 
 
 

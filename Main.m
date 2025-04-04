@@ -1,28 +1,19 @@
 % Load data
-data = dlmread('iris_training.data', ',', 0, 0);  % Read only numeric data
+data = dlmread('cancer_training.data', ',', 0, 0);  % Read only numeric data
 
-% Extract features (first 4 columns, excluding the classification on t he 5th column)
-X = data(:, 1:4); %This is the training data
-
-% Read labels separately (since they are strings)
-fid = fopen('iris_training.data', 'r');
-labels = textscan(fid, '%*f %*f %*f %*f %s', 'Delimiter', ',');
-fclose(fid);
-
-y = labels{1};
-
-class_labels = {'Iris-setosa', 'Iris-versicolor', 'Iris-virginica'};
-[~, y] = ismember(y, class_labels); % this is the outcome for each of the training data
+% Extract features 
+X = data(:, 2:10); %This is the training data
+y = data(:, 11:11) %This is traning labels
 % Display first few rows to verify
-% disp(X);
-% disp(y);
+disp(X);
+disp(y);
 
 % Some Constants
-input_layer = 4 % 4 features, sepal length&width, petal length&width
+input_layer = 9 
 hidden_layer = 120 % arbitrary amount
-num_labels = 3 % 3 classifications, Setosa, Veriscolour, Virginica
+num_labels = 2 % 2 classifications 2 or 4
 
-MAX_GENERATIONS = 1000 % Maximum Generations to go through
+MAX_GENERATIONS = 100 % Maximum Generations to go through
 TOTAL_POPULATION = 50 % Total Population
 TOURNAMENT_SIZE = TOTAL_POPULATION .* 0.5% Tournament size, Lower means more diversity but slower convergence
                     % but higher means that less diversity but faster convergence
@@ -104,17 +95,9 @@ Theta1 = reshape(optimal_weights(1:hidden_layer * (input_layer + 1)), ...
 Theta2 = reshape(optimal_weights((1 + (hidden_layer * (input_layer + 1))):end), ...
                  num_labels, (hidden_layer + 1));
 
-data = dlmread('iris_testing.data', ',', 0, 0);  % Read only numeric data
-testing_data = data(:, 1:4); %This is the testing data
-
-fid = fopen('iris_testing.data', 'r');
-labels = textscan(fid, '%*f %*f %*f %*f %s', 'Delimiter', ',');
-fclose(fid);
-
-testing_labels = labels{1};
-
-class_labels = {'Iris-setosa', 'Iris-versicolor', 'Iris-virginica'};
-[~, testing_labels] = ismember(testing_labels, class_labels); % this is the outcome for each of the training data
+data = dlmread('cancer_testing.data', ',', 0, 0);  % Read only numeric data
+testing_data = data(:, 2:10); %This is the testing data
+testing_labels = data(:, 11:11); %This is the testing data
 
 result = predict(Theta1, Theta2, testing_data);
 disp("Predicted Results: ");

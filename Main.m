@@ -14,8 +14,8 @@ hidden_layer = 120 % arbitrary amount
 num_labels = 2 % 2 classifications 2 or 4
 
 MAX_GENERATIONS = 100 % Maximum Generations to go through
-TOTAL_POPULATION = 50 % Total Population
-TOURNAMENT_SIZE = TOTAL_POPULATION .* 0.5% Tournament size, Lower means more diversity but slower convergence
+TOTAL_POPULATION = 100 % Total Population
+TOURNAMENT_SIZE = TOTAL_POPULATION .* 0.2% Tournament size, Lower means more diversity but slower convergence
                     % but higher means that less diversity but faster convergence
 MUTATION_CHANCE = 0.01 % Mutation chance. 
 

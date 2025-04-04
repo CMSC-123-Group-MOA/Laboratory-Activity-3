@@ -1,0 +1,1 @@
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 96.45

@@ -125,3 +125,10 @@ training_acc = mean(double(result == testing_labels(1:length(result), 1))) * 100
 fprintf('Training Accuracy: %.2f%%\n', training_acc);
 % J = nnCostFunction(nn_params, input_layer, hidden_layer, num_labels, X, y, 1); %Cost computation of with weights Theta1 and Theta2
 % disp(J);
+
+fid1 = fopen('logs.txt', 'a');
+
+fprintf(fid1, 'input layers: %d, hidden layers: %d, num labels: %d, generations: %d, population: %d, tournament: %d, mutation: %d, accuracy: %.2f\n', input_layer, hidden_layer, num_labels, MAX_GENERATIONS, TOTAL_POPULATION, TOURNAMENT_SIZE, MUTATION_CHANCE, training_acc);
+
+fclose(fid1);
+

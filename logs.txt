@@ -1,1 +1,13 @@
 input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 96.45
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 95.94
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 96.95
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 96.95
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 95.43
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 95.43
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 90.36
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 89.85
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 96.95
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 95.94
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 97.46
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 96.45
+input layers: 9, hidden layers: 120, num labels: 2, generations: 100, population: 100, tournament: 20, mutation: 0.01, accuracy: 96.95

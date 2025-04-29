@@ -86,11 +86,11 @@ for g = 1: MAX_GENERATIONS
     pops = new_pops;
 end
 
-p = plot (minFitness);
-xlabel ("Generation");
-ylabel ("Min Fitness");
-title ("Genetic Algorithm");
-waitfor(p);
+%xlabel ("Generation");
+%p = plot (minFitness);
+%ylabel ("Min Fitness");
+%title ("Genetic Algorithm");
+%waitfor(p);
 
 Theta1 = reshape(optimal_weights(1:hidden_layer * (input_layer + 1)), ...
                  hidden_layer, (input_layer + 1));

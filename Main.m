@@ -10,7 +10,7 @@ y = data(:, 11:11) %This is traning labels
 
 % Some Constants
 input_layer = 9 
-hidden_layer = 120 % arbitrary amount
+hidden_layer = 2 % arbitrary amount
 num_labels = 2 % 2 classifications 2 or 4
 
 MAX_GENERATIONS = 100 % Maximum Generations to go through
@@ -48,7 +48,8 @@ disp(current_fitness);
 % FITNESS EVALUATION
 for g = 1: MAX_GENERATIONS
     pops_position = updatePosition(pops_position, pops_velocity);
-
+    disp(pops_velocity{1});
+    disp(pops_position{1});
     for i = 1: TOTAL_POPULATION
         current_fitness = nnCostFunction(pops_position{i}, input_layer, hidden_layer, num_labels, X, y, 1);
         best_personal_fitness = nnCostFunction(best_personal{i}, input_layer, hidden_layer, num_labels, X, y, 1);

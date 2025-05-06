@@ -10,10 +10,13 @@ y = data(:, 11:11) %This is traning labels
 
 % Some Constants
 input_layer = 9 
-hidden_layer = 20% arbitrary amount
+hidden_layer = 20 % arbitrary amount
 num_labels = 2 % 2 classifications 2 or 4
+inertia = 0.9
+social = 0.95
+personal = 1.5
 
-MAX_GENERATIONS = 100 % Maximum Generations to go through
+MAX_GENERATIONS = 300 % Maximum Generations to go through
 TOTAL_POPULATION = 100 % Total Population
 
 % GENERATE POPULATION
@@ -64,7 +67,7 @@ for g = 1: MAX_GENERATIONS
         endif 
     end
 
-    pops_velocity = updateVelocity(pops_velocity, pops_position, best_personal, best_global, 1, 2, 2);
+    pops_velocity = updateVelocity(pops_velocity, pops_position, best_personal, best_global, inertia, personal, social);
     global_fitness = nnCostFunction(best_global, input_layer, hidden_layer, num_labels, X, y, 1);
 
     printf("Generation %d Global Fitness: %d\n", g, global_fitness);

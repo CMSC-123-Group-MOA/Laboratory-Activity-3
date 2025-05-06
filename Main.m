@@ -43,6 +43,8 @@ end
 %disp(pops_velocity);
 %disp(new_velocity(pops_velocity, pops_position, best_personal, best_global, 1, 2, 2))
 
+current_fitness = nnCostFunction(pops_position{1} + pops_velocity{1}, input_layer, hidden_layer, num_labels, X, y, 1);
+disp(current_fitness);
 % FITNESS EVALUATION
 for g = 1: MAX_GENERATIONS
     pops_position = updatePosition(pops_position, pops_velocity);
